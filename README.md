@@ -15,3 +15,9 @@
 ```
 
 - If the request is authorized, Google's endpoint returns a response and we then send a GET request to https://www.googleapis.com/plus/v1/people/me/openIdConnect where our application and the user is authenticated again.  Upon a successful response from this GET request we can create a token and authorization for the user which goes back to the front end and allows the user to access our application.
+
+## Initial Login 
+![](./assets/login%20start.png)
+
+## Choosing a Google Account for Login
+![](./assets/Choose%20an%20Account.png)
