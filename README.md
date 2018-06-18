@@ -1,24 +1,17 @@
 ![cf](http://i.imgur.com/7v5ASc8.png) 43: OAuth
 ===
 
-## Submission Instructions
-  * Work in a fork of this repository
-  * Work in a branch on your fork
-  * Submit a pull request to this repository
-  * Submit a link to your pull request on canvas
-	* Include a screenshot of your backend's output and your oauth consent screen
-  * Submit a question, observation, and how long you spent on canvas 
-  
-## Learning Objectives  
-* Students will learn to implement OAuth 
+## Overview
+- This project was to learn how to implement OAuth using a third party API.  The front end consists of a simple index.html with a link redirecting a user to login with their Google account credentials.  Upon choosing to log in with Google a POST request is made via a server on a backend web application server that goes to https://www.googleapis.com/oauth2/v4/token
+- The Google endpoint will then respond with a code that begins the handshake process.  
+- When the code is received via the POST response, the backend web server sends a predetermined http request with the following fields....
+```
+.send({
+        code: request.query.code,
+        grant_type: 'authorization_code',
+        client_id: process.env.GOOGLE_OAUTH_ID,
+        client_secret: process.env.GOOGLE_OAUTH_SECRET,
+        redirect_uri: `${process.env.API_URL}/oauth/google`
+```
 
-## Requirements  
-#### backend
-* Create a backend route `GET /oauth/<3RD PARTY NAME>` for handling oauth 
-
-#### frontend 
-* Create an index.html with an anchor tag pointing to the google authorization page 
-* Configure the query string with correct key value pairs
-
-#### Documentation  
-Write a description of the project in your README.md, including detailed instructions for how to build your app.
+- If the request is authorized, Google's endpoint returns a response and we then send a GET request to https://www.googleapis.com/plus/v1/people/me/openIdConnect where our application and the user is authenticated again.  Upon a successful response from this GET request we can create a token and authorization for the user which goes back to the front end and allows the user to access our application.
